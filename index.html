@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- Allows normal zoom in/out and responsive scaling on phones/laptops -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+
+  <meta name="description" content="Yaser Ibrahim - Network Engineer Portfolio" />
+  <title>Yaser Ibrahim | Network Engineer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050816;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-strong: rgba(255, 255, 255, 0.14);
+      --text: #f8fbff;
+      --muted: #aab7cf;
+      --line: rgba(255, 255, 255, 0.16);
+      --blue: #38bdf8;
+      --cyan: #22d3ee;
+      --purple: #8b5cf6;
+      --pink: #ec4899;
+      --green: #2dd4bf;
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.42);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: "Inter", system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.16), transparent 28%),
+        radial-gradient(circle at 80% 10%, rgba(139, 92, 246, 0.2), transparent 28%),
+        radial-gradient(circle at 50% 90%, rgba(236, 72, 153, 0.13), transparent 35%),
+        var(--bg);
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.12;
+      z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .cursor-glow {
+      position: fixed;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      translate: -50% -50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.18), transparent 64%);
+      filter: blur(8px);
+    }
+
+    .aurora {
+      position: fixed;
+      width: 520px;
+      height: 520px;
+      border-radius: 999px;
+      filter: blur(55px);
+      opacity: 0.25;
+      z-index: 0;
+      animation: float 14s ease-in-out infinite alternate;
+    }
+
+    .aurora-1 {
+      left: -160px;
+      top: 14%;
+      background: var(--blue);
+    }
+
+    .aurora-2 {
+      right: -180px;
+      top: 10%;
+      background: var(--purple);
+      animation-delay: 2s;
+    }
+
+    .aurora-3 {
+      left: 40%;
+      bottom: -240px;
+      background: var(--pink);
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      from { transform: translate3d(0, 0, 0) scale(1); }
+      to { transform: translate3d(40px, -50px, 0) scale(1.15); }
+    }
+
+    .topbar {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1160px, calc(100% - 32px));
+      min-height: 72px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: rgba(5, 8, 22, 0.62);
+      backdrop-filter: blur(22px);
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      min-width: 42px;
+      height: 42px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--blue), var(--purple), var(--pink));
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.45);
+    }
+
+    .desktop-nav {
+      display: flex;
+      gap: 8px;
+    }
+
+    .nav-link {
+      border: 0;
+      color: var(--muted);
+      background: transparent;
+      padding: 12px 15px;
+      border-radius: 16px;
+      font-weight: 700;
+      transition: 0.25s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .menu-btn {
+      display: none;
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 16px;
+    }
+
+    .menu-btn span {
+      display: block;
+      height: 2px;
+      width: 20px;
+      background: var(--text);
+      margin: 5px auto;
+      border-radius: 10px;
+    }
+
+    .mobile-menu {
+      display: none;
+    }
+
+    .shell {
+      position: relative;
+      z-index: 2;
+      width: min(1160px, calc(100% - 32px));
+      min-height: 100vh;
+      margin: 0 auto;
+      padding-top: 130px;
+    }
+
+    .page {
+      display: none;
+      min-height: calc(100vh - 180px);
+      animation: pageEnter 0.75s cubic-bezier(.2, .9, .2, 1) both;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes pageEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(36px) scale(0.98);
+        filter: blur(18px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 34px;
+      align-items: center;
+      padding: 50px 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--cyan);
+      border: 1px solid rgba(34, 211, 238, 0.28);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(34, 211, 238, 0.08);
+      font-weight: 800;
+      margin-bottom: 28px;
+    }
+
+    .pulse-dot {
+      min-width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(45, 212, 191, 0.8);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      70% { box-shadow: 0 0 0 12px rgba(45, 212, 191, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0); }
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 8vw, 6.8rem);
+      line-height: 0.9;
+      letter-spacing: -0.08em;
+      font-weight: 900;
+    }
+
+    .gradient-text {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--blue), var(--cyan), var(--purple), var(--pink), var(--blue));
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: gradientShift 5s linear infinite;
+    }
+
+    @keyframes gradientShift {
+      to { background-position: 300% center; }
+    }
+
+    .lead {
+      max-width: 690px;
+      margin: 28px 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.8;
+    }
+
+    .hero-actions,
+    .direct-contact-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .contact-btn {
+      border: 0;
+      padding: 15px 20px;
+      border-radius: 18px;
+      font-weight: 900;
+      color: var(--text);
+      transition: 0.25s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+    }
+
+    .primary-btn,
+    .contact-btn.main {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      box-shadow: 0 18px 45px rgba(56, 189, 248, 0.22);
+    }
+
+    .secondary-btn,
+    .contact-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--line);
+    }
+
+    .primary-btn:hover,
+    .secondary-btn:hover,
+    .contact-btn:hover {
+      transform: translateY(-4px);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 34px;
+      max-width: 620px;
+    }
+
+    .stats div,
+    .glass-card,
+    .skill-column,
+    .timeline-item,
+    .hero-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(20px);
+      box-shadow: var(--shadow);
+    }
+
+    .stats div {
+      padding: 18px;
+      border-radius: 22px;
+    }
+
+    .stats strong {
+      display: block;
+      font-size: 1.5rem;
+    }
+
+    .stats span {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      min-height: 590px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transform-style: preserve-3d;
+    }
+
+    .card-ring {
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border: 2px solid rgba(56, 189, 248, 0.4);
+      border-radius: 50%;
+      animation: spin 14s linear infinite;
+    }
+
+    .card-ring::after {
+      content: "";
+      position: absolute;
+      inset: 35px;
+      border-radius: inherit;
+      border: 2px dashed rgba(236, 72, 153, 0.4);
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .profile-orb {
+      position: relative;
+      width: 170px;
+      height: 170px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background:
+        linear-gradient(135deg, rgba(56, 189, 248, .9), rgba(139, 92, 246, .9)),
+        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, .5), transparent 28%);
+      box-shadow: 0 0 70px rgba(56, 189, 248, 0.38);
+      margin-bottom: 24px;
+      z-index: 2;
+    }
+
+    .profile-orb span {
+      font-size: 3.3rem;
+      font-weight: 900;
+    }
+
+    .hero-card h2 {
+      font-size: 2rem;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .hero-card p {
+      color: var(--muted);
+      margin: 8px 0 24px;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .terminal {
+      width: 100%;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.38);
+      z-index: 2;
+    }
+
+    .terminal-bar {
+      height: 42px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .terminal-bar span {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--blue);
+    }
+
+    .terminal-bar span:nth-child(2) { background: var(--purple); }
+    .terminal-bar span:nth-child(3) { background: var(--pink); }
+
+    pre {
+      padding: 18px;
+      min-height: 128px;
+      color: #8fffe0;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .section-head {
+      padding: 30px 0;
+    }
+
+    .section-head span {
+      color: var(--cyan);
+      font-weight: 900;
+    }
+
+    .section-head h2 {
+      margin-top: 12px;
+      max-width: 860px;
+      font-size: clamp(2.35rem, 6vw, 5rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+    }
+
+    .content-grid,
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 20px;
+    }
+
+    .glass-card,
+    .skill-column,
+    .timeline-item {
+      border-radius: 30px;
+      padding: 28px;
+    }
+
+    .big-card {
+      grid-row: span 2;
+    }
+
+    .glass-card h3,
+    .skill-column h3,
+    .timeline-item h3 {
+      font-size: 1.45rem;
+      margin-bottom: 14px;
+    }
+
+    .glass-card p,
+    .timeline-item p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .info-card span {
+      display: block;
+      color: var(--cyan);
+      font-weight: 800;
+      margin-top: 10px;
+    }
+
+    .clean-list {
+      list-style: none;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    .skill-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .skill-column {
+      min-height: 480px;
+    }
+
+    .skill-chip {
+      position: relative;
+      overflow: hidden;
+      padding: 14px 16px;
+      border-radius: 18px;
+      margin: 10px 0;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      border: 1px solid var(--line);
+      font-weight: 800;
+    }
+
+    .skill-chip::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-100%);
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, .25), transparent);
+      transition: 0.5s ease;
+    }
+
+    .skill-chip:hover::before {
+      transform: translateX(100%);
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 18px;
+      padding-bottom: 40px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: 16px;
+      bottom: 50px;
+      width: 2px;
+      background: linear-gradient(var(--blue), var(--purple), transparent);
+    }
+
+    .timeline-item {
+      margin-left: 48px;
+      position: relative;
+      transition: 0.25s ease;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -42px;
+      top: 30px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 25px var(--cyan);
+    }
+
+    .timeline-item:hover {
+      transform: translateX(8px);
+    }
+
+    .timeline-item.featured {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.16), rgba(139, 92, 246, 0.16));
+    }
+
+    .year {
+      display: inline-block;
+      color: var(--cyan);
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .contact-grid {
+      align-items: stretch;
+    }
+
+    .contact-card {
+      min-height: 470px;
+    }
+
+    .contact-panel {
+      display: grid;
+      gap: 16px;
+    }
+
+    .contact-tile {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px;
+      background: rgba(255,255,255,0.07);
+      text-decoration: none;
+      color: var(--text);
+      transition: 0.25s ease;
+    }
+
+    .contact-tile:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.12);
+    }
+
+    .contact-tile span {
+      display: block;
+      color: var(--cyan);
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .contact-tile strong {
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      position: relative;
+      z-index: 2;
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 30px 0;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 1050px) {
+      .desktop-nav {
+        gap: 3px;
+      }
+
+      .nav-link {
+        padding: 10px 10px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .desktop-nav {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .mobile-menu {
+        position: fixed;
+        top: 100px;
+        right: 16px;
+        width: min(320px, calc(100% - 32px));
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 14px;
+        background: rgba(5, 8, 22, 0.88);
+        backdrop-filter: blur(22px);
+        z-index: 30;
+        box-shadow: var(--shadow);
+      }
+
+      .mobile-menu.open {
+        display: grid;
+        gap: 8px;
+      }
+
+      .hero-grid,
+      .content-grid,
+      .contact-grid,
+      .skill-board {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        min-height: 480px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .topbar {
+        top: 10px;
+        width: calc(100% - 20px);
+        border-radius: 20px;
+      }
+
+      .brand span:last-child {
+        display: none;
+      }
+
+      .shell {
+        width: calc(100% - 20px);
+        padding-top: 105px;
+      }
+
+      .hero-grid {
+        padding: 22px 0;
+      }
+
+      .eyebrow {
+        border-radius: 20px;
+        align-items: flex-start;
+        line-height: 1.5;
+      }
+
+      h1 {
+        font-size: clamp(2.6rem, 16vw, 4.8rem);
+      }
+
+      .section-head h2 {
+        font-size: clamp(2.2rem, 13vw, 4rem);
+      }
+
+      .lead {
+        font-size: 1rem;
+      }
+
+      .hero-card,
+      .glass-card,
+      .skill-column,
+      .timeline-item {
+        border-radius: 24px;
+        padding: 22px;
+      }
+
+      .profile-orb {
+        width: 135px;
+        height: 135px;
+      }
+
+      .profile-orb span {
+        font-size: 2.5rem;
+      }
+
+      .card-ring {
+        width: 280px;
+        height: 280px;
+      }
+
+      .timeline::before {
+        left: 10px;
+      }
+
+      .timeline-item {
+        margin-left: 34px;
+      }
+
+      .timeline-item::before {
+        left: -31px;
+      }
+
+      .primary-btn,
+      .secondary-btn,
+      .contact-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-glow"></div>
+  <div class="noise"></div>
+  <div class="aurora aurora-1"></div>
+  <div class="aurora aurora-2"></div>
+  <div class="aurora aurora-3"></div>
+
+  <header class="topbar">
+    <a href="#home" class="brand" data-page="home">
+      <span class="brand-mark">YI</span>
+      <span>Yaser Ibrahim</span>
+    </a>
+
+    <nav class="desktop-nav">
+      <button class="nav-link active" data-page="home">Home</button>
+      <button class="nav-link" data-page="about">About</button>
+      <button class="nav-link" data-page="skills">Skills</button>
+      <button class="nav-link" data-page="experience">Experience</button>
+      <button class="nav-link" data-page="contact">Contact</button>
+    </nav>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <aside class="mobile-menu" id="mobileMenu">
+    <button class="nav-link active" data-page="home">Home</button>
+    <button class="nav-link" data-page="about">About</button>
+    <button class="nav-link" data-page="skills">Skills</button>
+    <button class="nav-link" data-page="experience">Experience</button>
+    <button class="nav-link" data-page="contact">Contact</button>
+  </aside>
+
+  <main class="shell">
+    <section class="page active" id="home" data-page="home">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">
+            <span class="pulse-dot"></span>
+            Network Engineer / Cisco / Fiber / MPLS Track
+          </div>
+
+          <h1>
+            Building reliable
+            <span class="gradient-text">network infrastructure</span>
+            with engineering precision.
+          </h1>
+
+          <p class="lead">
+            I am Yaser Ibrahim, a Network Engineer with a strong foundation in Network Engineering
+            and Security, currently gaining hands-on experience at SCC Jordan in Cisco configuration,
+            troubleshooting, and high-performance network operations.
+          </p>
+
+          <div class="hero-actions">
+            <button class="primary-btn" data-page="contact">Contact Me</button>
+            <button class="secondary-btn" data-page="experience">View Experience</button>
+          </div>
+
+          <div class="stats">
+            <div><strong>CCNA</strong><span>Certified</span></div>
+            <div><strong>2025</strong><span>Graduation</span></div>
+            <div><strong>SCC</strong><span>Network Engineer</span></div>
+          </div>
+        </div>
+
+        <div class="hero-card tilt-card">
+          <div class="card-ring"></div>
+          <div class="profile-orb">
+            <span>YI</span>
+          </div>
+          <h2>Yaser Ibrahim</h2>
+          <p>Network Engineering & Security</p>
+
+          <div class="terminal">
+            <div class="terminal-bar">
+              <span></span><span></span><span></span>
+            </div>
+            <pre><code id="typewriter"></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="about" data-page="about">
+      <div class="section-head">
+        <span>01 / About</span>
+        <h2>Engineer mindset. Practical execution.</h2>
+      </div>
+
+      <div class="content-grid">
+        <article class="glass-card big-card">
+          <h3>Professional Profile</h3>
+          <p>
+            Network Engineer with a solid foundation in Network Engineering and Security from
+            Jordan University of Science and Technology. Focused on Cisco device administration,
+            network troubleshooting, routing and switching, and reliable network performance.
+          </p>
+          <p>
+            I combine field experience with lab-based learning using tools like EVE-NG, PNetLab,
+            Packet Tracer, MobaXterm, and PuTTY to build, test, and troubleshoot real network scenarios.
+          </p>
+        </article>
+
+        <article class="glass-card info-card">
+          <h3>Education</h3>
+          <p>Bachelor’s in Network Engineering and Security</p>
+          <strong>Jordan University of Science and Technology</strong>
+          <span>2020 - 2025</span>
+        </article>
+
+        <article class="glass-card info-card">
+          <h3>Certificates</h3>
+          <ul class="clean-list">
+            <li>CCNA Certification - 2025</li>
+            <li>Cisco Linux Essentials - 2025</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="page" id="skills" data-page="skills">
+      <div class="section-head">
+        <span>02 / Skills</span>
+        <h2>Technical stack connected to real network work.</h2>
+      </div>
+
+      <div class="skill-board">
+        <div class="skill-column">
+          <h3>Networking & Infrastructure</h3>
+          <div class="skill-chip">Routing & Switching</div>
+          <div class="skill-chip">OSPF</div>
+          <div class="skill-chip">BGP</div>
+          <div class="skill-chip">VLANs</div>
+          <div class="skill-chip">STP</div>
+          <div class="skill-chip">EtherChannel</div>
+          <div class="skill-chip">Cisco Troubleshooting</div>
+          <div class="skill-chip">Fiber Optics</div>
+          <div class="skill-chip">Broadband</div>
+          <div class="skill-chip">E-Band Links</div>
+        </div>
+
+        <div class="skill-column">
+          <h3>Development</h3>
+          <div class="skill-chip">Python Scripting</div>
+          <div class="skill-chip">C++</div>
+          <div class="skill-chip">HTML5</div>
+          <div class="skill-chip">CSS3</div>
+          <div class="skill-chip">JavaScript</div>
+          <div class="skill-chip">Automation Thinking</div>
+        </div>
+
+        <div class="skill-column">
+          <h3>Tools & Soft Skills</h3>
+          <div class="skill-chip">EVE-NG</div>
+          <div class="skill-chip">PNetLab</div>
+          <div class="skill-chip">Packet Tracer</div>
+          <div class="skill-chip">MobaXterm</div>
+          <div class="skill-chip">PuTTY</div>
+          <div class="skill-chip">Problem Solving</div>
+          <div class="skill-chip">Leadership</div>
+          <div class="skill-chip">Technical Communication</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="experience" data-page="experience">
+      <div class="section-head">
+        <span>03 / Experience</span>
+        <h2>Experience timeline with leadership and technical growth.</h2>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item featured">
+          <span class="year">Feb 2026 - Present</span>
+          <h3>Network Engineer - SCC Jordan</h3>
+          <p>Configuring Cisco devices, troubleshooting network issues, and supporting reliable network performance.</p>
+        </div>
+
+        <div class="timeline-item">
+          <span class="year">2025</span>
+          <h3>Incubator Program - Estarta Solutions</h3>
+          <p>Professional development and technical growth program.</p>
+        </div>
+
+        <div class="timeline-item">
+          <span class="year">2024</span>
+          <h3>Vice-Chairman - IEEE JUST Branch</h3>
+          <p>Leadership role supporting events, coordination, and branch operations.</p>
+        </div>
+
+        <div class="timeline-item">
+          <span class="year">2023</span>
+          <h3>IEEE JUST Branch Roles</h3>
+          <p>Leader of Logistics and Treasurer at IEEE Jordan University of Science and Technology Branch.</p>
+        </div>
+
+        <div class="timeline-item">
+          <span class="year">2023</span>
+          <h3>SOFEX Exhibitor</h3>
+          <p>Exhibitor with Autonomous Platforms Laboratory.</p>
+        </div>
+
+        <div class="timeline-item">
+          <span class="year">2020 - 2021</span>
+          <h3>JUST Activities</h3>
+          <p>Autonomous Platforms Laboratory employee and supervisor of Entrepreneurship and Creativity course.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="contact" data-page="contact">
+      <div class="section-head">
+        <span>04 / Contact</span>
+        <h2>Direct contact. No forms. No friction.</h2>
+      </div>
+
+      <div class="contact-grid">
+        <div class="glass-card contact-card">
+          <h3>Let’s connect</h3>
+          <p>
+            Open to networking, technical opportunities, and professional collaboration in network engineering,
+            infrastructure, Cisco environments, and service provider technologies.
+          </p>
+
+          <div class="direct-contact-actions">
+            <a class="contact-btn main" href="mailto:yaseribrahim.tcp@gmail.com">Email Me</a>
+            <a class="contact-btn" href="tel:+962798647838">Call Me</a>
+            <a class="contact-btn" href="https://wa.me/962798647838" target="_blank" rel="noreferrer">WhatsApp</a>
+            <a class="contact-btn" href="https://www.linkedin.com/in/yaser-ibrahim-065227182" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
+        </div>
+
+        <div class="contact-panel">
+          <a class="contact-tile" href="mailto:yaseribrahim.tcp@gmail.com">
+            <span>Email</span>
+            <strong>yaseribrahim.tcp@gmail.com</strong>
+          </a>
+
+          <a class="contact-tile" href="tel:+962798647838">
+            <span>Phone</span>
+            <strong>+962 798 647 838</strong>
+          </a>
+
+          <a class="contact-tile" href="https://www.linkedin.com/in/yaser-ibrahim-065227182" target="_blank" rel="noreferrer">
+            <span>LinkedIn</span>
+            <strong>linkedin.com/in/yaser-ibrahim-065227182</strong>
+          </a>
+
+          <div class="contact-tile">
+            <span>Location</span>
+            <strong>Amman, Jordan</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Yaser Ibrahim. Designed for impact.</p>
+  </footer>
+
+  <script>
+    const pages = document.querySelectorAll(".page");
+    const navLinks = document.querySelectorAll(".nav-link, .primary-btn, .secondary-btn, .brand");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const menuBtn = document.getElementById("menuBtn");
+    const cursorGlow = document.querySelector(".cursor-glow");
+    const typewriter = document.getElementById("typewriter");
+
+    const commands = [
+      "router bgp 65000",
+      "neighbor 10.10.10.1 remote-as 65000",
+      "address-family vpnv4",
+      "send-community extended",
+      "status: network-ready"
+    ];
+
+    let commandIndex = 0;
+    let charIndex = 0;
+    let currentText = "";
+
+    function setPage(pageName) {
+      pages.forEach(page => {
+        page.classList.toggle("active", page.dataset.page === pageName);
+      });
+
+      document.querySelectorAll(".nav-link").forEach(link => {
+        link.classList.toggle("active", link.dataset.page === pageName);
+      });
+
+      history.replaceState(null, "", `#${pageName}`);
+      mobileMenu.classList.remove("open");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    navLinks.forEach(link => {
+      link.addEventListener("click", event => {
+        const pageName = link.dataset.page;
+        if (!pageName) return;
+        event.preventDefault();
+        setPage(pageName);
+      });
+    });
+
+    menuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("open");
+    });
+
+    window.addEventListener("mousemove", event => {
+      cursorGlow.style.left = `${event.clientX}px`;
+      cursorGlow.style.top = `${event.clientY}px`;
+    });
+
+    function runTypewriter() {
+      if (!typewriter) return;
+
+      const command = commands[commandIndex];
+
+      if (charIndex < command.length) {
+        currentText += command.charAt(charIndex);
+        typewriter.textContent = currentText + "█";
+        charIndex++;
+        setTimeout(runTypewriter, 45);
+        return;
+      }
+
+      currentText += "\n";
+      typewriter.textContent = currentText + "█";
+      commandIndex = (commandIndex + 1) % commands.length;
+      charIndex = 0;
+
+      if (currentText.split("\n").length > 6) {
+        currentText = "";
+      }
+
+      setTimeout(runTypewriter, 700);
+    }
+
+    document.querySelectorAll(".tilt-card").forEach(card => {
+      card.addEventListener("mousemove", event => {
+        if (window.innerWidth <= 900) return;
+
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const rotateX = ((y / rect.height) - 0.5) * -10;
+        const rotateY = ((x / rect.width) - 0.5) * 10;
+
+        card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "perspective(900px) rotateX(0) rotateY(0)";
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const initialPage = location.hash.replace("#", "") || "home";
+    if (document.querySelector(`[data-page="${initialPage}"]`)) {
+      setPage(initialPage);
+    }
+
+    runTypewriter();
+  </script>
+</body>
+</html>
